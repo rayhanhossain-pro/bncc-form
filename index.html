@@ -141,8 +141,8 @@ input:user-invalid,select:user-invalid,textarea:user-invalid{border-color:var(--
             <input type="email" id="emailAddress" name="emailAddress" placeholder="example@gmail.com" autocomplete="email" required>
           </div> -->
           <div class="field">
-            <label for="nameBn">আবেদনকারীর নাম (বাংলা)</label>
-            <input type="text" id="nameBn" name="nameBn" autocomplete="off">
+            <label class="req" for="nameBn">আবেদনকারীর নাম (বাংলা)</label>
+            <input type="text" id="nameBn" name="nameBn" autocomplete="off" required>
           </div>
           <div class="field">
             <label class="req" for="nameEn">আবেদনকারীর নাম (ইংরেজি)</label>
@@ -291,36 +291,37 @@ input:user-invalid,select:user-invalid,textarea:user-invalid{border-color:var(--
 
 <script>
 /* ---------- Google Form সেটিংস ---------- */
+/* ------ viewform?usp=pp_url&entry.1158100590=%E0%A6%86%E0%A6%AC%E0%A7%87%E0%A6%A6%E0%A6%A8%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B0+%E0%A6%A8%E0%A6%BE%E0%A6%AE+(%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE):&entry.1905173769=%E0%A6%86%E0%A6%AC%E0%A7%87%E0%A6%A6%E0%A6%A8%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B0+%E0%A6%A8%E0%A6%BE%E0%A6%AE+(%E0%A6%87%E0%A6%82%E0%A6%B0%E0%A7%87%E0%A6%9C%E0%A6%BF):&entry.1683549634=%E0%A6%AA%E0%A6%BF%E0%A6%A4%E0%A6%BE%E0%A6%B0+%E0%A6%A8%E0%A6%BE%E0%A6%AE&entry.855087699=%E0%A6%AE%E0%A6%BE%E0%A6%A4%E0%A6%BE%E0%A6%B0+%E0%A6%A8%E0%A6%BE%E0%A6%AE&entry.768262721=2026-11-12&entry.624024144=%E0%A7%A7%E0%A6%AE&entry.1511014732=%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AB-%E0%A7%A8%E0%A7%AC&entry.646752854=%E0%A7%A7%E0%A6%AE&entry.876690207=%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A6%A8%E0%A7%8B%E0%A6%B2%E0%A6%9C%E0%A6%BF&entry.237258700=%E0%A6%AC%E0%A7%8B%E0%A6%B0%E0%A7%8D%E0%A6%A1+%E0%A6%B0%E0%A7%8B%E0%A6%B2&entry.1488460518=%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%A4%E0%A6%AE%E0%A6%BE%E0%A6%A8+%E0%A6%A0%E0%A6%BF%E0%A6%95%E0%A6%BE%E0%A6%A8%E0%A6%BE&entry.835643723=%E0%A6%B8%E0%A7%8D%E0%A6%A5%E0%A6%BE%E0%A6%AF%E0%A6%BC%E0%A7%80+%E0%A6%A0%E0%A6%BF%E0%A6%95%E0%A6%BE%E0%A6%A8%E0%A6%BE&entry.741121058=%E0%A6%A7%E0%A6%B0%E0%A7%8D%E0%A6%AE&entry.738561686=%E0%A6%8F%E0%A6%B8%E0%A6%8F%E0%A6%B8%E0%A6%B8%E0%A6%BF+%E0%A6%AA%E0%A6%B0%E0%A7%80%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AF%E0%A6%BC+%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AA%E0%A7%8D%E0%A6%A4+%E0%A6%AB%E0%A6%B2%E0%A6%BE%E0%A6%AB%E0%A6%B2&entry.1055113563=%E0%A6%B9%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%81&entry.1416012418=%E0%A6%95%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A1%E0%A7%87%E0%A6%9F+%E0%A6%A8%E0%A6%AE%E0%A7%8D%E0%A6%AC%E0%A6%B0+(%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%AF%E0%A7%8B%E0%A6%9C%E0%A7%8D%E0%A6%AF+%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%A4%E0%A7%8D%E0%A6%B0%E0%A7%87&entry.1776659914=%E0%A6%AC%E0%A6%BF%E0%A6%8F%E0%A6%A8%E0%A6%B8%E0%A6%BF%E0%A6%B8%E0%A6%BF%E0%A6%A4%E0%A7%87+%E0%A6%95%E0%A7%87%E0%A6%A8+%E0%A6%AD%E0%A6%B0%E0%A7%8D%E0%A6%A4%E0%A6%BF+%E0%A6%B9%E0%A6%A4%E0%A7%87+%E0%A6%87%E0%A6%9A%E0%A7%8D%E0%A6%9B%E0%A7%81%E0%A6%95&entry.1046868765=%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A%E0%A6%A4%E0%A6%BE:&entry.1783637537=%E0%A6%93%E0%A6%9C%E0%A6%A8&entry.2141540625=%E0%A6%B6%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B0%E0%A6%BF%E0%A6%95+%E0%A6%95%E0%A7%8B%E0%A6%A8%E0%A7%8B+%E0%A6%85%E0%A6%B8%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%AE%E0%A6%A4%E0%A6%BE+%E0%A6%AC%E0%A6%BE+%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A7%87%E0%A6%B7+%E0%A6%9A%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A6%E0%A6%BE+%E0%A6%B0%E0%A6%AF%E0%A6%BC%E0%A7%87%E0%A6%9B%E0%A7%87+%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A6%BE&entry.2106048282=%E0%A6%B9%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%81&entry.1575423142=%E0%A6%86%E0%A6%AC%E0%A7%87%E0%A6%A6%E0%A6%A8%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%80%E0%A6%B0+%E0%A6%AE%E0%A7%8B%E0%A6%AC%E0%A6%BE%E0%A6%87%E0%A6%B2+%E0%A6%A8%E0%A6%AE%E0%A7%8D%E0%A6%AC%E0%A6%B0+(WhatsApp&entry.551514640=%E0%A6%AC%E0%A6%BF%E0%A6%95%E0%A6%B2%E0%A7%8D%E0%A6%AA+%E0%A6%AE%E0%A7%8B%E0%A6%AC%E0%A6%BE%E0%A6%87%E0%A6%B2+%E0%A6%A8%E0%A6%AE%E0%A7%8D%E0%A6%AC%E0%A6%B0&entry.1156611453=%E0%A6%87-%E0%A6%AE%E0%A7%87%E0%A6%87%E0%A6%B2 ------ */
+
 const GFORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfv8fqjh9QjRo4gp23DgWmqC_1QSdt5F3Hh0ABOWnqSjVwb4Q/formResponse";
 
 /* প্রতিটি ফিল্ডের নামের পাশে Google Form-এর entry ID বসাতে হবে
    (Get pre-filled link থেকে পাওয়া যাবে)। "emailAddress" ঠিক এভাবেই থাকবে। */
 const ENTRY = {
-  emailAddress:     "emailAddress",
-  nameBn:           "entry.XXXXXXXX",
-  nameEn:           "entry.XXXXXXXX",
-  fatherName:       "entry.XXXXXXXX",
-  motherName:       "entry.XXXXXXXX",
-  dob:              "entry.XXXXXXXX",   // _year, _month, _day নিজে থেকেই যোগ হবে
-  parbo:            "entry.XXXXXXXX",
-  session:          "entry.XXXXXXXX",
-  shift:            "entry.XXXXXXXX",
-  technology:       "entry.XXXXXXXX",
-  boardRoll:        "entry.XXXXXXXX",
-  presentAddress:   "entry.XXXXXXXX",
-  permanentAddress: "entry.XXXXXXXX",
-  religion:         "entry.XXXXXXXX",
-  sscGpa:           "entry.XXXXXXXX",
-  wasCadet:         "entry.XXXXXXXX",
-  cadetNo:          "entry.XXXXXXXX",
-  reason:           "entry.XXXXXXXX",
-  height:           "entry.XXXXXXXX",
-  weight:           "entry.XXXXXXXX",
-  disability:       "entry.XXXXXXXX",
-  twoDays:          "entry.XXXXXXXX",
-  whatsapp:         "entry.XXXXXXXX",
-  altMobile:        "entry.XXXXXXXX",
-  contactEmail:     "entry.XXXXXXXX"
+  nameBn:           "entry.1158100590",
+  nameEn:           "entry.1905173769",
+  fatherName:       "entry.1683549634",
+  motherName:       "entry.855087699",
+  dob:              "entry.768262721",   // _year, _month, _day নিজে থেকেই যোগ হবে
+  parbo:            "entry.624024144",
+  session:          "entry.1511014732",
+  shift:            "entry.646752854",
+  technology:       "entry.876690207",
+  boardRoll:        "entry.237258700",
+  presentAddress:   "entry.1488460518",
+  permanentAddress: "entry.835643723",
+  religion:         "entry.741121058",
+  sscGpa:           "entry.738561686",
+  wasCadet:         "entry.1055113563",
+  cadetNo:          "entry.1416012418",
+  reason:           "entry.1776659914",
+  height:           "entry.1046868765",
+  weight:           "entry.1783637537",
+  disability:       "entry.2141540625",
+  twoDays:          "entry.2106048282",
+  whatsapp:         "entry.1575423142",
+  altMobile:        "entry.551514640",
+  contactEmail:     "entry.1156611453"
 };
 
 /* ---------- ধাপে ধাপে নেভিগেশন ---------- */
