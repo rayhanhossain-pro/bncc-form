@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্রাথমিক ভর্তি ফরম - ঢাকা পলিটেকনিক বিএনসিসি</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#ea2228; --navy:#283b93; --sky:#26a9e1;
+  --ink:#1c2340; --muted:#5b6283; --line:#c9cfe6; --soft:#f3f5fc;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Hind Siliguri',sans-serif;color:var(--ink);line-height:1.5;
+  min-height:100vh;padding:28px 14px 48px;
+  background:#283b93 url('bg.png') center/cover no-repeat fixed;
+}
+.wrap{max-width:860px;margin:0 auto}
+
+/* header */
+.masthead{
+  background:var(--navy);color:#fff;text-align:center;
+  padding:26px 20px 24px;border-radius:12px 12px 0 0;position:relative;
+}
+.masthead::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:9px;
+  background:linear-gradient(to bottom,var(--red) 0 33.3%,#1b2a73 33.3% 66.6%,var(--sky) 66.6%);
+}
+.masthead .org{font-size:clamp(22px,4.6vw,34px);font-weight:700;line-height:1.25}
+.masthead .inst{font-size:clamp(15px,2.8vw,19px);font-weight:500;margin-top:4px;opacity:.95}
+.masthead .tag{
+  display:inline-block;margin-top:12px;padding:3px 16px;border-radius:99px;
+  background:var(--red);font-weight:600;font-size:15px;
+}
+
+/* card */
+.card{background:#fff;border-radius:0 0 12px 12px;padding:26px clamp(16px,4vw,34px) 30px;box-shadow:0 14px 40px rgba(10,20,70,.35)}
+h1{font-size:clamp(24px,5vw,32px);font-weight:700;color:var(--navy)}
+.intro{margin:8px 0 22px;color:var(--muted);font-size:15.5px}
+.intro strong{color:var(--ink)}
+
+/* stepper */
+.steps{display:flex;gap:8px;margin-bottom:24px;list-style:none}
+.steps li{flex:1;font-size:13px;font-weight:500;color:var(--muted)}
+.steps li::before{content:"";display:block;height:5px;border-radius:5px;background:var(--line);margin-bottom:6px;transition:background .25s}
+.steps li.done::before{background:var(--sky)}
+.steps li.on{color:var(--navy);font-weight:600}
+.steps li.on::before{background:var(--navy)}
+@media(max-width:560px){.steps li span{display:none}.steps li.on span{display:inline}}
+
+/* form */
+.step{display:none;border:0}
+.step.on{display:block}
+.step legend{font-size:19px;font-weight:600;color:var(--navy);padding-bottom:6px;margin-bottom:14px;border-bottom:2px solid var(--red);width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
+.field{display:flex;flex-direction:column;margin-bottom:10px}
+.field.full{grid-column:1/-1}
+label,.q{font-size:14.5px;font-weight:500;margin-bottom:5px}
+.req::after{content:" *";color:var(--red)}
+input,select,textarea{
+  font:inherit;font-size:15.5px;color:var(--ink);background:#fff;
+  border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-height:44px;width:100%;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(38,169,225,.35)}
+input:user-invalid,select:user-invalid,textarea:user-invalid{border-color:var(--red)}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+.opts{display:flex;gap:10px;flex-wrap:wrap}
+.opts label{
+  display:flex;align-items:center;gap:8px;margin:0;font-size:15.5px;font-weight:400;
+  padding:9px 18px;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:#fff;
+}
+.opts input{width:18px;height:18px;min-height:0;padding:0;accent-color:var(--navy)}
+.opts label:has(input:checked){border-color:var(--navy);background:var(--soft);font-weight:500}
+.opts label:has(input:focus-visible){box-shadow:0 0 0 3px rgba(38,169,225,.35)}
+
+/* buttons */
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.btn{
+  font:inherit;font-weight:600;font-size:15.5px;min-height:46px;padding:0 28px;border-radius:6px;
+  border:1px solid var(--navy);cursor:pointer;transition:background .15s,transform .1s;
+}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.btn.back{background:#fff;color:var(--navy)}
+.btn.back:hover{background:var(--soft)}
+.btn.next{background:var(--navy);color:#fff;margin-left:auto}
+.btn.next:hover{background:#1f2f78}
+.btn.send{background:var(--red);border-color:var(--red);color:#fff;margin-left:auto}
+.btn.send:hover{background:#cf1a20}
+.btn:disabled{opacity:.6;cursor:wait}
+
+/* toast */
+#toast{
+  position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;pointer-events:none;
+  background:#16803c;color:#fff;padding:13px 24px;border-radius:8px;font-weight:500;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:99;transition:.3s;max-width:92vw;text-align:center
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.err{background:var(--red)}
+
+@media(max-width:640px){.grid{grid-template-columns:1fr}.btn{padding:0 20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="org">বাংলাদেশ ন্যাশনাল ক্যাডেট কোর</div>
+    <div class="inst">ঢাকা সরকারি পলিটেকনিক ইনস্টিটিউট বিএনসিসি (সেনা শাখা)</div>
+    <span class="tag">নিয়োগ বিজ্ঞপ্তি</span>
+  </header>
+
+  <main class="card">
+    <h1>প্রাথমিক ভর্তি ফরম</h1>
+    <p class="intro">
+      ঢাকা পলিটেকনিক ইনস্টিটিউট বিএনসিসি প্লাটুনে ভর্তি হতে ইচ্ছুক সকল আবেদনকারীকে অবশ্যই <strong>ঢাকা পলিটেকনিক ইনস্টিটিউটের বর্তমান শিক্ষার্থী হতে হবে।</strong><br>
+      শুধুমাত্র <strong>২০২৫-২৬ এবং ২০২৬-২৭</strong> শিক্ষাবর্ষে অধ্যয়নরত শিক্ষার্থীরাই এই ফরমের মাধ্যমে আবেদন করতে পারবে। অন্যথায়, আবেদনটি বাতিল বলে গণ্য হবে।
+    </p>
+
+    <ol class="steps" id="steps" aria-label="ধাপ">
+      <li class="on"><span>ব্যক্তিগত তথ্য</span></li>
+      <li><span>বিএনসিসি তথ্য</span></li>
+      <li><span>শারীরিক সক্ষমতা</span></li>
+      <li><span>যোগাযোগ</span></li>
+    </ol>
+
+    <form id="registrationForm" novalidate>
+
+      <!-- পৃষ্ঠা ১ -->
+      <fieldset class="step on">
+        <legend>ব্যক্তিগত তথ্য</legend>
+        <div class="grid">
+          <div class="field full">
+            <label class="req" for="emailAddress">ইমেইল</label>
+            <input type="email" id="emailAddress" name="emailAddress" placeholder="example@gmail.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="nameBn">আবেদনকারীর নাম (বাংলা)</label>
+            <input type="text" id="nameBn" name="nameBn" autocomplete="off">
+          </div>
+          <div class="field">
+            <label class="req" for="nameEn">আবেদনকারীর নাম (ইংরেজি)</label>
+            <input type="text" id="nameEn" name="nameEn" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label class="req" for="fatherName">পিতার নাম</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+          </div>
+          <div class="field">
+            <label class="req" for="motherName">মাতার নাম</label>
+            <input type="text" id="motherName" name="motherName" required>
+          </div>
+          <div class="field">
+            <label class="req" for="dob">জন্মতারিখ</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+          <div class="field">
+            <span class="q req" id="parboLabel">পর্ব</span>
+            <div class="opts" role="radiogroup" aria-labelledby="parboLabel">
+              <label><input type="radio" name="parbo" value="১ম" required> ১ম</label>
+              <label><input type="radio" name="parbo" value="৩য়"> ৩য়</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="req" for="session">সেশন</label>
+            <select id="session" name="session" required>
+              <option value="" disabled selected>নির্বাচন করুন</option>
+              <option>২০২৫-২৬</option>
+              <option>২০২৬-২৭</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="req" for="shift">শিফট</label>
+            <select id="shift" name="shift" required>
+              <option value="" disabled selected>নির্বাচন করুন</option>
+              <option>১ম শিফট</option>
+              <option>২য় শিফট</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="req" for="technology">টেকনোলজি</label>
+            <input type="text" id="technology" name="technology" placeholder="যেমন: কম্পিউটার" required>
+          </div>
+          <div class="field">
+            <label class="req" for="boardRoll">বোর্ড রোল</label>
+            <input type="text" id="boardRoll" name="boardRoll" inputmode="numeric" required>
+          </div>
+          <div class="field full">
+            <label class="req" for="presentAddress">বর্তমান ঠিকানা</label>
+            <input type="text" id="presentAddress" name="presentAddress" required>
+          </div>
+          <div class="field full">
+            <label class="req" for="permanentAddress">স্থায়ী ঠিকানা</label>
+            <input type="text" id="permanentAddress" name="permanentAddress" required>
+          </div>
+          <div class="field">
+            <label class="req" for="religion">ধর্ম</label>
+            <input type="text" id="religion" name="religion" required>
+          </div>
+          <div class="field">
+            <label class="req" for="sscGpa">এসএসসি পরীক্ষায় প্রাপ্ত ফলাফল (GPA)</label>
+            <input type="text" id="sscGpa" name="sscGpa" inputmode="decimal" placeholder="যেমন: 5.00" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- পৃষ্ঠা ২ -->
+      <fieldset class="step">
+        <legend>বিএনসিসি সংক্রান্ত তথ্য</legend>
+        <div class="grid">
+          <div class="field full">
+            <span class="q req" id="cadetLabel">পূর্বে বিএনসিসি ক্যাডেট ছিলেন কি না?</span>
+            <div class="opts" role="radiogroup" aria-labelledby="cadetLabel">
+              <label><input type="radio" name="wasCadet" value="হ্যাঁ" required> হ্যাঁ</label>
+              <label><input type="radio" name="wasCadet" value="না"> না</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cadetNo">ক্যাডেট নম্বর (প্রযোজ্য ক্ষেত্রে)</label>
+            <input type="text" id="cadetNo" name="cadetNo">
+          </div>
+          <div class="field full">
+            <label class="req" for="reason">বিএনসিসিতে কেন ভর্তি হতে ইচ্ছুক?</label>
+            <textarea id="reason" name="reason" required></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- পৃষ্ঠা ৩ -->
+      <fieldset class="step">
+        <legend>শারীরিক সক্ষমতা ও অবস্থা</legend>
+        <div class="grid">
+          <div class="field">
+            <label class="req" for="height">উচ্চতা</label>
+            <input type="text" id="height" name="height" placeholder="যেমন: ৫ ফুট ৭ ইঞ্চি" required>
+          </div>
+          <div class="field">
+            <label class="req" for="weight">ওজন</label>
+            <input type="text" id="weight" name="weight" placeholder="যেমন: ৬০ কেজি" required>
+          </div>
+          <div class="field full">
+            <label class="req" for="disability">শারীরিক কোনো অসক্ষমতা বা বিশেষ চাহিদা রয়েছে কিনা?</label>
+            <input type="text" id="disability" name="disability" placeholder="না থাকলে &quot;নেই&quot; লিখুন" required>
+          </div>
+          <div class="field full">
+            <label class="req" for="twoDays">প্রতি সপ্তাহে বিএনসিসির কার্যক্রমে অন্তত ২ দিন সময় দিতে পারবেন কিনা?</label>
+            <select id="twoDays" name="twoDays" required style="max-width:260px">
+              <option value="" disabled selected>নির্বাচন করুন</option>
+              <option>হ্যাঁ</option>
+              <option>না</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- পৃষ্ঠা ৪ -->
+      <fieldset class="step">
+        <legend>যোগাযোগের তথ্য</legend>
+        <div class="grid">
+          <div class="field">
+            <label class="req" for="whatsapp">আবেদনকারীর মোবাইল নম্বর (WhatsApp)</label>
+            <input type="tel" id="whatsapp" name="whatsapp" inputmode="tel" pattern="[0-9০-৯+\- ]{10,15}" placeholder="01XXXXXXXXX" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label class="req" for="altMobile">বিকল্প মোবাইল নম্বর</label>
+            <input type="tel" id="altMobile" name="altMobile" inputmode="tel" pattern="[0-9০-৯+\- ]{10,15}" placeholder="01XXXXXXXXX" required>
+          </div>
+          <div class="field full">
+            <label for="contactEmail">ই-মেইল</label>
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="example@gmail.com">
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="nav">
+        <button type="button" class="btn back" id="backBtn" hidden>পূর্ববর্তী</button>
+        <button type="button" class="btn next" id="nextBtn">পরবর্তী</button>
+        <button type="submit" class="btn send" id="submitBtn" hidden>জমা দিন</button>
+      </div>
+    </form>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- Google Form সেটিংস ---------- */
+const GFORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfv8fqjh9QjRo4gp23DgWmqC_1QSdt5F3Hh0ABOWnqSjVwb4Q/formResponse";
+
+/* প্রতিটি ফিল্ডের নামের পাশে Google Form-এর entry ID বসাতে হবে
+   (Get pre-filled link থেকে পাওয়া যাবে)। "emailAddress" ঠিক এভাবেই থাকবে। */
+const ENTRY = {
+  emailAddress:     "emailAddress",
+  nameBn:           "entry.XXXXXXXX",
+  nameEn:           "entry.XXXXXXXX",
+  fatherName:       "entry.XXXXXXXX",
+  motherName:       "entry.XXXXXXXX",
+  dob:              "entry.XXXXXXXX",   // _year, _month, _day নিজে থেকেই যোগ হবে
+  parbo:            "entry.XXXXXXXX",
+  session:          "entry.XXXXXXXX",
+  shift:            "entry.XXXXXXXX",
+  technology:       "entry.XXXXXXXX",
+  boardRoll:        "entry.XXXXXXXX",
+  presentAddress:   "entry.XXXXXXXX",
+  permanentAddress: "entry.XXXXXXXX",
+  religion:         "entry.XXXXXXXX",
+  sscGpa:           "entry.XXXXXXXX",
+  wasCadet:         "entry.XXXXXXXX",
+  cadetNo:          "entry.XXXXXXXX",
+  reason:           "entry.XXXXXXXX",
+  height:           "entry.XXXXXXXX",
+  weight:           "entry.XXXXXXXX",
+  disability:       "entry.XXXXXXXX",
+  twoDays:          "entry.XXXXXXXX",
+  whatsapp:         "entry.XXXXXXXX",
+  altMobile:        "entry.XXXXXXXX",
+  contactEmail:     "entry.XXXXXXXX"
+};
+
+/* ---------- ধাপে ধাপে নেভিগেশন ---------- */
+const form = document.getElementById("registrationForm");
+const panels = [...form.querySelectorAll(".step")];
+const dots = [...document.querySelectorAll("#steps li")];
+const backBtn = document.getElementById("backBtn");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+const toast = document.getElementById("toast");
+let cur = 0;
+
+function show(i){
+  cur = i;
+  panels.forEach((p, n) => p.classList.toggle("on", n === i));
+  dots.forEach((d, n) => {
+    d.classList.toggle("on", n === i);
+    d.classList.toggle("done", n < i);
+  });
+  backBtn.hidden = i === 0;
+  nextBtn.hidden = i === panels.length - 1;
+  submitBtn.hidden = i !== panels.length - 1;
+  document.querySelector(".masthead").scrollIntoView({behavior: "smooth"});
+}
+
+function stepValid(){
+  const fields = panels[cur].querySelectorAll("input, select, textarea");
+  for (const f of fields){
+    if (!f.checkValidity()){ f.reportValidity(); f.focus(); return false; }
+  }
+  return true;
+}
+
+nextBtn.addEventListener("click", () => { if (stepValid()) show(cur + 1); });
+backBtn.addEventListener("click", () => show(cur - 1));
+
+/* ---------- বার্তা ---------- */
+let timer;
+function say(msg, isErr){
+  toast.textContent = msg;
+  toast.classList.toggle("err", !!isErr);
+  toast.classList.add("show");
+  clearTimeout(timer);
+  timer = setTimeout(() => toast.classList.remove("show"), 4500);
+}
+
+/* ---------- জমা দেওয়া ---------- */
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  if (!stepValid()) return;
+
+  const src = new FormData(form);
+  const out = new FormData();
+  for (const [key, id] of Object.entries(ENTRY)){
+    const val = src.get(key);
+    if (val === null || val === "") continue;
+    if (key === "dob"){
+      const [y, m, d] = val.split("-");
+      out.append(id + "_year", y);
+      out.append(id + "_month", String(+m));
+      out.append(id + "_day", String(+d));
+    } else {
+      out.append(id, val);
+    }
+  }
+
+  submitBtn.disabled = true;
+  fetch(GFORM_URL, {method: "POST", mode: "no-cors", body: out})
+    .then(() => {
+      say("আপনার আবেদন সফলভাবে জমা হয়েছে। ধন্যবাদ!");
+      form.reset();
+      show(0);
+    })
+    .catch(err => {
+      console.error(err);
+      say("জমা দেওয়া যায়নি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।", true);
+    })
+    .finally(() => { submitBtn.disabled = false; });
+});
+</script>
+</body>
+</html>
